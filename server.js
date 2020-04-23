@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
 const express = require('express');
+const methodoverride = require('method-override');
 const app = express();
 const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
@@ -15,6 +16,7 @@ app.set('views', __dirname + '/views');
 app.set('layout', 'layouts/layout');
 app.use(expressLayouts);
 app.use(express.static('public'));
+app.use(methodoverride('_method'));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
 
 app.use('/', indexRouter);
