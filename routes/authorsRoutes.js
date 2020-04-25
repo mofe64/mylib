@@ -27,7 +27,7 @@ router.post(
 );
 
 //get single author
-router.get('/:id', authorController.getSingleAuthor);
+router.get('/:id', authContoller.isLoggedIn, authorController.getSingleAuthor);
 
 //edit single author (get)
 router.get(

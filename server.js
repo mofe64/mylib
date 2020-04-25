@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
 
@@ -25,6 +26,7 @@ app.use(methodoverride('_method'));
 app.use(express.json({ limit: '10kb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }));
 app.use(cookieParser());
+app.use(compression());
 
 app.use('/', indexRouter);
 app.use('/authors', authorRouter);
