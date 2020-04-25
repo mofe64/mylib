@@ -24,7 +24,7 @@
 <div class="book-cen">
 <% books.forEach(book => { %>
     <a href="/books/<%= book.id %>">
-        <img class = "imgbook"  src="<%= book.coverImagePath %>">
+        <img height ="150" width= "100" src="<%= book.coverImagePath %>">
     </a>
     <div class="btn-row btn-row-book">
     <a  class =" btn btn-download"href="http://<%= book.link %>">Download now</a>
