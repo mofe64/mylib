@@ -16,7 +16,7 @@ exports.getAllAuthors = async (req, res) => {
       searchOptions: req.query,
     });
   } catch (error) {
-    res.redirect('/');
+    return res.redirect('/');
   }
 };
 
@@ -30,7 +30,7 @@ exports.createNewAuthor = async (req, res) => {
   });
   try {
     const newAuthor = await author.save();
-    res.redirect(`authors/${newAuthor.id}`);
+    return res.redirect(`authors/${newAuthor.id}`);
     //res.redirect(`authors`);
   } catch (error) {
     res.render('authors/new', {
@@ -49,7 +49,7 @@ exports.getSingleAuthor = async (req, res) => {
       booksByAuthor: books,
     });
   } catch (error) {
-    res.redirect('/');
+    return res.redirect('/');
   }
 };
 
@@ -59,7 +59,7 @@ exports.editAuthorGet = async (req, res) => {
     res.render('authors/edit', { author: author });
   } catch (error) {
     console.log(error);
-    res.redirect('/authors');
+    return res.redirect('/authors');
   }
 };
 
@@ -69,11 +69,11 @@ exports.editauthorPut = async (req, res) => {
     author = await Author.findById(req.params.id);
     author.name = req.body.name;
     await author.save();
-    res.redirect(`/authors/${author.id}`);
+    return res.redirect(`/authors/${author.id}`);
   } catch (error) {
     console.log(error);
     if (author == null) {
-      res.redirect('/');
+      return res.redirect('/');
     } else {
       res.render('authors/edit', {
         author: author,
@@ -88,13 +88,13 @@ exports.deleteAuthor = async (req, res) => {
   try {
     author = await Author.findById(req.params.id);
     await author.remove();
-    res.redirect('/authors');
+    return res.redirect('/authors');
   } catch (error) {
     console.log(error);
     if (author == null) {
-      res.redirect('/');
+      return res.redirect('/');
     } else {
-      res.redirect(`/authors/${author.id}`);
+      return res.redirect(`/authors/${author.id}`);
     }
   }
 };

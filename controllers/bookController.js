@@ -32,7 +32,7 @@ exports.getAllBooks = async (req, res) => {
       searchOptions: req.query,
     });
   } catch (error) {
-    res.redirect('/');
+    return res.redirect('/');
   }
 };
 
@@ -58,7 +58,7 @@ exports.createNewBookPost = async (req, res) => {
 
   try {
     const newBook = await book.save();
-    res.redirect(`/books/${book.id}`);
+    return res.redirect(`/books/${book.id}`);
     //res.redirect(`books`);
   } catch (error) {
     //console.log(error);
@@ -67,13 +67,13 @@ exports.createNewBookPost = async (req, res) => {
 };
 
 //get single book
-exports.getBook = async (req, res) => {
+exports.getBook = async (req, res, next) => {
   try {
     const book = await Book.findById(req.params.id).populate('author').exec();
     res.render('books/show', { book: book });
   } catch (error) {
     console.error;
-    res.redirect('/');
+    return res.redirect('/');
   }
 };
 
@@ -83,7 +83,7 @@ exports.editBook = async (req, res) => {
     const book = await Book.findById(req.params.id);
     renderEditPage(res, book);
   } catch (error) {
-    res.redirect('/');
+    return res.redirect('/');
   }
 };
 
@@ -102,13 +102,13 @@ exports.updateBook = async (req, res) => {
       saveCover(book, req.body.cover);
     }
     await book.save();
-    res.redirect(`/books/${book.id}`);
+    return res.redirect(`/books/${book.id}`);
   } catch (error) {
     //console.log(error);
     if (book != null) {
       renderEditPage(res, book, true);
     } else {
-      res.redirect('/');
+      return res.redirect('/');
     }
   }
 };
@@ -119,7 +119,7 @@ exports.deleteBook = async (req, res) => {
   try {
     book = await Book.findById(req.params.id);
     await book.remove();
-    res.redirect('/books');
+    return res.redirect('/books');
   } catch (error) {
     if (book != null) {
       res.render('books/show', {
@@ -127,7 +127,7 @@ exports.deleteBook = async (req, res) => {
         errorMessage: 'Could Not remove bOOK',
       });
     } else {
-      res.redirect('/');
+      return res.redirect('/');
     }
   }
 };
@@ -157,7 +157,7 @@ async function renderFormPage(res, book, form, hasError = false) {
     }
     res.render(`books/${form}`, params);
   } catch {
-    res.redirect('/books');
+    return res.redirect('/books');
   }
 }
 
