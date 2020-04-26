@@ -26,7 +26,7 @@ exports.getAllBooks = async (req, res) => {
     query = query.gte('publishDate', req.query, publishedAfter);
   }
   try {
-    const books = await query.exec();
+    const books = await query.sort({ createdAt: 'desc' }).exec();
     res.render('books/index', {
       books: books,
       searchOptions: req.query,
@@ -98,6 +98,7 @@ exports.updateBook = async (req, res) => {
     book.publishDate = req.body.publishDate;
     book.pageCount = req.body.pageCount;
     book.description = req.body.description;
+    book.link = req.body.link;
     if (req.body.cover != null && req.body.cover !== '') {
       saveCover(book, req.body.cover);
     }
