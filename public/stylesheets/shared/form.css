@@ -7,24 +7,10 @@
   --form-input-border-color-light: hsl(var(--color-base-hue), 100%, 80%);
 }
 .form-row {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-bottom: 0.5rem;
 }
 @media screen and (max-width: 600px) {
-  .form-row {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
-    align-items: flex-start;
-  }
   .form-item {
     margin-left: 0 !important;
   }
